@@ -67,3 +67,64 @@ submitButton.disabled = true;
 var parent = document.querySelector('aside');
 var bioInfo = document.querySelector('.bio-info');
 parent.removeChild(bioInfo);
+
+
+====== Day 2 ========
+Removing Elements from the DOM
+
+1) Panda the Bear is lying about their skills! Take the "time travel" skill off the page to satisfy your personal sense of justice. Use your googling and docs-skimming skillz to find a jQuery function that will allow you to remove elements from the DOM. (hint: there are multiple ways of doing this, but the parent() function might be useful when it comes to selecting the right element)
+
+(document.querySelector('.bar-default:nth-child(3n)')).remove();
+
+===== Adding Elements to the DOM =====
+1) That drawing of Pikachu is really cute. Let’s duplicate it using cloneNode() and insert it at the bottom of the .portfolio-container using insertAdjacentHTML() or appendChild().
+
+var pikachu = document.querySelector("#right-image img");
+var clone = pikachu.cloneNode(true);
+var portfolioContainer = document.querySelector('.portfolio-container');
+
+portfolioContainer.appendChild(clone);
+
+2) Wow, that was so satisfying I think we should do it 10 more times. Use a for loop to help you do this.
+
+for(var i = 0; i <= 9; i++){
+  portfolioContainer.appendChild(clone.cloneNode(true));
+}
+
+3) Let’s add a message about when the page was last updated. We'll do this by appending a new <li> element to the <ul> in the sidebar (you might need to refresh the page to bring back the list items that we emptied out earlier).
+
+i) First we need to construct a new <li> tag.
+var listItem = document.createElement('li');
+
+ii) Now we need a new <span> tag to go inside the <li> we just made. This span will eventually go in the left column below 'Phone'.
+var leftSpan = document.createElement('span');
+
+iii) Next we need to make a "text node" in order to put text inside our new span. A text node is a chunk of plain text that lives inside some HTML tag in the DOM.
+var lastUpdated = document.createTextNode('Page last updated on');
+
+iv) We're ready to put that new text node inside our new <span> using appendChild.
+leftSpan.appendChild(lastUpdated);
+
+v) And we'll put the <span> inside the <li>, again using appendChild.
+listItem.appendChild(leftSpan);
+
+vi) I select the bioSection and save it to a variable
+var bioSection = document.querySelector('.bio-info');
+
+vii) Append the listItem to the bioSection
+bioSection.appendChild(listItem);
+
+viii) Create a new right span
+var rightSpan = document.createElement('span');
+
+ix) Save date to a variable
+var date = new Date();
+
+x) Create a new text with the date we saved before
+var dateHTML = document.createTextNode(date);
+
+xi) Append the dateHTML node to the rightSpan
+rightSpan.appendChild(dateHTML);
+
+xii) Append lastChild to rightSpan
+bioSection.lastChild.appendChild(rightSpan);
